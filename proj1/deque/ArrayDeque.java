@@ -74,6 +74,7 @@ public class ArrayDeque<Item> {
 
         arr[h] = null;
         first = (first + 1) & (length - 1);
+        arr_size -= 1;
         if (arr_size * 4 < length) resize(length / 2);
         return x;
     }
