@@ -1,98 +1,94 @@
 package deque;
 
-import java.util.ArrayList;
-
-public class ArrayDeque<Item> {
-
-    public Item[] arr;
-    public int arr_size;
-    public int first;
-    public int last;
-    public int length;
+public class ArrayDeque<T> {
+    T[] arr;
+    int head = 0;
+    int tail = 0;
+    int length , arr_size;
 
     public ArrayDeque() {
-        arr = (Item[]) new Object[8];
-        arr_size = 0;
-        length = 8;
-        first = 0;
-        last = 0;
-    }
-
-    public void resize(int cap) {
-        Item[] narr = (Item[]) new Object[cap];
-        int i = first;
-        int j = 0;
-        while (j < arr_size) {
-            narr[j] = arr[i];
-            i = (i + 1) % length;
-            j ++;
-        }
-        first = 0;
-        if (isEmpty()) last = 0;
-        else last = j - 1;
-        arr = narr;
-        length = cap;
-    }
-
-    public Item removeLast() {
-        if (isEmpty()) return null;
-        int t = (last - 1) & (length - 1);
-
-        Item x = arr[t];
-        //arr[t] = null;
-        last = t;
-        arr_size -= 1;
-        if (arr_size * 4 < length) resize(length / 2);
-        return x;
-    }
-
-    public void addLast(Item x) {
-        arr[last] = x;
-        arr_size += 1;
-        if ((last = (last + 1) & (length - 1)) == first) resize(length * 2);
+        arr = (T[]) new Object[8];
+        head = 0;
+        tail = 0;
+        length = 0;
+        arr_size = 8;
     }
 
     public int size() {
-        return arr_size;
+        return length;
+    }
+
+    public void addFirst(T x) {
+        if (head == (tail - 1 + arr_size) % arr_size) resize(arr_size * 2);
+        int target = (head + 1) % arr_size;
+        arr[target] = x;
+        head = target;
+        length += 1;
+    }
+
+    public void addLast(T x) {
+        if ((tail - 1 + arr_size) % arr_size == head) resize(arr_size * 2);
+        arr[tail] = x;
+        length += 1;
+        tail = (tail + 1) % length;
+    }
+
+    public T get(int i) {
+        if (i < 0 || i > length) return null;
+        int target = (i + head) % length;
+        return arr[target];
     }
 
     public boolean isEmpty() {
-        return arr_size == 0;
-    }
-    public void addFirst(Item x) {
-        arr[first = (first - 1) & (length - 1)] = x;
-        if (first == last - 1) resize(length * 2);
-        arr_size += 1;
+        return length == 0;
     }
 
-    public Item removeFirst() {
+    public T removeLast() {
+        if (isEmpty()) return  null;
+        int target = (tail - 1 + arr_size) % arr_size;
+        T last = arr[target];
+        tail = target;
+        length -= 1;
+        if (length * 4 < arr_size) resize(arr_size / 2);
+        return last;
+    }
+
+    public T removeFirst() {
         if (isEmpty()) return null;
-        int h = first;
-        Item x = (Item) arr[h];
-        if (x == null) return null;
-
-        arr[h] = null;
-        first = (first + 1) & (length - 1);
-        arr_size -= 1;
-        if (arr_size * 4 < length) resize(length / 2);
-        return x;
+        T first = arr[head];
+        length -= 1;
+        head = (head - 1 + arr_size) % arr_size;
+        if (length * 4 < arr_size) resize(arr_size / 2);
+        return first;
     }
 
-    public Item get(int i) {
-        if (i < 0 || i >= arr_size) return null;
-        int pos = (i + first) % length;
-        return arr[pos];
+    public void resize(int cap) {
+        T[] narr = (T[]) new Object[cap];
+        int hh = head , tt = tail;
+        int j = 0;
+
+        while (hh < tt) {
+            narr[j] = arr[hh];
+            j ++;
+            hh = (hh + 1) % arr_size;
+        }
+
+        arr_size = cap;
+        head = 0;
+        if (isEmpty()) tail = 0;
+        else tail = j;
+        arr = narr;
     }
 
     public void printDeque() {
-        int hh = first , tt = last;
-
+        if (isEmpty()) System.out.println();
+        int hh = head , tt = tail;
         while (hh < tt) {
-            Item t = arr[hh];
-            System.out.print(t);
+            System.out.print(arr[hh]);
             System.out.print(' ');
-            hh = (hh + 1) % length;
+            hh = (hh + 1) % arr_size;
         }
+
         System.out.println();
     }
 }
