@@ -2,13 +2,13 @@ package deque;
 
 import java.util.ArrayList;
 
-class ArrayDeque<Item> {
+public class ArrayDeque<Item> {
 
-    private Item[] arr;
-    private int arr_size;
-    private int first;
-    private int last;
-    private int length;
+    public Item[] arr;
+    public int arr_size;
+    public int first;
+    public int last;
+    public int length;
 
     public ArrayDeque() {
         arr = (Item[]) new Object[8];

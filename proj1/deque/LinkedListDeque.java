@@ -1,17 +1,19 @@
+
+
 package deque;
 
 import java.awt.event.ItemEvent;
 
-class LinkedListDeque<Item> {
-    private class Node<Item> {
+public class LinkedListDeque<Item> {
+    public class Node<Item> {
         Item value;
         Node<Item> next;
         Node<Item> prev;
 
     }
 
-    private Node<Item> sentinal , endSentinal;
-    private int list_size = 0;
+    public Node<Item> sentinal , endSentinal;
+    public int list_size = 0;
 
     public LinkedListDeque() {
         sentinal = new Node<>();
