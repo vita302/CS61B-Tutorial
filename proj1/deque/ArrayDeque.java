@@ -57,12 +57,11 @@ public class ArrayDeque<Item> {
     }
 
     public boolean isEmpty() {
-        if (arr_size == 0) return true;
-        return false;
+        return arr_size == 0;
     }
     public void addFirst(Item x) {
         arr[first = (first - 1) & (length - 1)] = x;
-        if (first == last) resize(length * 2);
+        if (first == last - 1) resize(length * 2);
         arr_size += 1;
     }
 
