@@ -19,15 +19,20 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T x) {
-        if (head == (tail - 1 + arr_size) % arr_size) resize(arr_size * 2);
-        int target = (head + 1) % arr_size;
+        if (length == arr_size - 1) resize(arr_size * 2);
+        int target;
+        if (isEmpty())  {
+            target = head;
+            tail = (head + 1) % arr_size;
+        }
+        else  target = (head - 1 + arr_size) % arr_size;
         arr[target] = x;
         head = target;
         length += 1;
     }
 
     public void addLast(T x) {
-        if ((tail - 1 + arr_size) % arr_size == head) resize(arr_size * 2);
+        if (length == arr_size - 1) resize(arr_size * 2);
         arr[tail] = x;
         length += 1;
         tail = (tail + 1) % length;
@@ -57,7 +62,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) return null;
         T first = arr[head];
         length -= 1;
-        head = (head - 1 + arr_size) % arr_size;
+        head = (head + 1 + arr_size) % arr_size;
         if (length * 4 < arr_size) resize(arr_size / 2);
         return first;
     }
@@ -67,7 +72,7 @@ public class ArrayDeque<T> {
         int hh = head , tt = tail;
         int j = 0;
 
-        while (hh < tt) {
+        while (j < length) {
             narr[j] = arr[hh];
             j ++;
             hh = (hh + 1) % arr_size;
