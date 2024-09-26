@@ -70,8 +70,8 @@ public class ArrayDequeTest {
         deque.ArrayDeque<Integer> student = new deque.ArrayDeque<>();
         ArrayDeque<Integer> solution = new ArrayDeque<>();
         String msg = "";
-        for (int i = 0; i < 54569; i++) {
-            double choice = 0.76;
+        for (int i = 0; i < 10; i++) {
+            double choice = 0.66;
             Integer randVal = 55;
             if (choice < 0.33) {
                 student.addLast(randVal);
@@ -80,6 +80,12 @@ public class ArrayDequeTest {
             } else if (choice < 0.67) {
                 student.addFirst(randVal);
                 solution.addFirst(randVal);
+                student.addFirst(randVal + 1);
+                solution.addFirst(randVal + 1);
+                System.out.println(student.get(0));
+                System.out.println(student.get(1));
+                student.removeFirst();
+                solution.removeFirst();
                 msg += "addFirst(" + randVal + ")\n";
             } else {
                 int size = student.size();

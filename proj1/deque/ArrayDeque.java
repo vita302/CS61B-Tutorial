@@ -40,7 +40,7 @@ public class ArrayDeque<T> {
 
     public T get(int i) {
         if (i < 0 || i > length) return null;
-        int target = (i + head) % length;
+        int target = (i + head) % arr_size;
         return arr[target];
     }
 
