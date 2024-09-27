@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
         if (length == arr_size - 1) resize(arr_size * 2);
         arr[tail] = x;
         length += 1;
-        tail = (tail + 1) % length;
+        tail = (tail + 1) % arr_size;
     }
 
     public T get(int i) {
@@ -75,7 +75,7 @@ public class ArrayDeque<T> {
 
     public void resize(int cap) {
         T[] narr = (T[]) new Object[cap];
-        int hh = head , tt = tail;
+        int hh = head;
         int j = 0;
 
         while (j < length) {
@@ -93,11 +93,13 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         if (isEmpty()) System.out.println();
-        int hh = head , tt = tail;
-        while (hh < tt) {
+        int hh = head;
+        int j = 0;
+        while (j < length) {
             System.out.print(arr[hh]);
             System.out.print(' ');
             hh = (hh + 1) % arr_size;
+            j ++;
         }
 
         System.out.println();
