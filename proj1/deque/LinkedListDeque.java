@@ -2,17 +2,17 @@
 
 package deque;
 
-import java.awt.event.ItemEvent;
+//import java.awt.event.TEvent;
 
-public class LinkedListDeque<Item> {
-    public class Node<Item> {
-        Item value;
-        Node<Item> next;
-        Node<Item> prev;
+public class LinkedListDeque<T> implements Deque<T>{
+    public class Node<T> {
+        T value;
+        Node<T> next;
+        Node<T> prev;
 
     }
 
-    public Node<Item> sentinal , endSentinal;
+    public Node<T> sentinal , endSentinal;
     public int list_size = 0;
 
     public LinkedListDeque() {
@@ -23,13 +23,13 @@ public class LinkedListDeque<Item> {
         sentinal.value = endSentinal.value = null;
     }
 
-    public Item getRecursive(int index) {
-        Node<Item> curr = sentinal.next;
+    public T getRecursive(int index) {
+        Node<T> curr = sentinal.next;
         if (curr == endSentinal) return null;
         return getByR(curr , index);
     }
 
-    private Item getByR(Node<Item> curr , int index)
+    private T getByR(Node<T> curr , int index)
     {
         if (index == 0) return curr.value;
         else {
@@ -41,8 +41,8 @@ public class LinkedListDeque<Item> {
 
 
 
-    public void addFirst(Item x) {
-        Node<Item> fr = new Node<>();
+    public void addFirst(T x) {
+        Node<T> fr = new Node<>();
         fr.value = x;
         fr.next = sentinal.next;
         sentinal.next = fr;
@@ -51,10 +51,10 @@ public class LinkedListDeque<Item> {
         if (endSentinal.prev == sentinal) endSentinal.prev = fr;
     }
 
-    public void addLast(Item x) {
+    public void addLast(T x) {
 
-        Node<Item> curr = endSentinal.prev;
-        Node<Item> fr = new Node<>();
+        Node<T> curr = endSentinal.prev;
+        Node<T> fr = new Node<>();
         fr.value = x;
         fr.next = endSentinal;
         curr.next = fr;
@@ -64,17 +64,21 @@ public class LinkedListDeque<Item> {
         list_size += 1;
     }
 
+    /*
+    @Override
     public boolean isEmpty() {
         if (list_size != 0) return false;
         return true;
     }
+
+     */
 
     public int size() {
         return list_size;
     }
 
     public void printDeque() {
-        Node<Item> pointer;
+        Node<T> pointer;
         pointer = sentinal.next;
         while (pointer != endSentinal) {
             System.out.print(pointer.value);
@@ -85,29 +89,29 @@ public class LinkedListDeque<Item> {
         System.out.println();
     }
 
-    public Item removeFirst() {
-        Node<Item> curr = sentinal.next;
+    public T removeFirst() {
+        Node<T> curr = sentinal.next;
         if (curr == endSentinal) return null;
-        Item x = sentinal.next.value;
+        T x = sentinal.next.value;
         curr.prev = sentinal;
         sentinal.next = curr.next;
         list_size -= 1;
         return x;
     }
 
-    public Item removeLast() {
-        Node<Item> curr = endSentinal.prev;
+    public T removeLast() {
+        Node<T> curr = endSentinal.prev;
         if (curr == sentinal) return null;
-        Item x = curr.value;
+        T x = curr.value;
         curr.prev.next = endSentinal;
         endSentinal.prev = curr.prev;
         list_size -= 1;
         return x;
     }
 
-    public Item get(int index) {
+    public T get(int index) {
         int count = 0;
-        Node<Item> curr = sentinal.next;
+        Node<T> curr = sentinal.next;
 
         while (count != index) {
             curr = curr.next;

@@ -1,25 +1,25 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     T[] arr;
     int head = 0;
     int tail = 0;
-    int length , arr_size;
+    int list_size , arr_size;
 
     public ArrayDeque() {
         arr = (T[]) new Object[8];
         head = 0;
         tail = 0;
-        length = 0;
+        list_size = 0;
         arr_size = 8;
     }
 
     public int size() {
-        return length;
+        return list_size;
     }
 
     public void addFirst(T x) {
-        if (length == arr_size - 1) resize(arr_size * 2);
+        if (list_size == arr_size - 1) resize(arr_size * 2);
         int target;
         if (isEmpty())  {
             target = head;
@@ -28,18 +28,18 @@ public class ArrayDeque<T> {
         else  target = (head - 1 + arr_size) % arr_size;
         arr[target] = x;
         head = target;
-        length += 1;
+        list_size += 1;
     }
 
     public void addLast(T x) {
-        if (length == arr_size - 1) resize(arr_size * 2);
+        if (list_size == arr_size - 1) resize(arr_size * 2);
         arr[tail] = x;
-        length += 1;
+        list_size += 1;
         tail = (tail + 1) % arr_size;
     }
 
     public T get(int i) {
-        if (i < 0 || i > length) return null;
+        if (i < 0 || i > list_size) return null;
         //int target = (i  + head) % arr_size;
 
         int target = head;
@@ -50,26 +50,30 @@ public class ArrayDeque<T> {
         return arr[target];
     }
 
+    /*
     public boolean isEmpty() {
-        return length == 0;
+        return list_size == 0;
     }
+
+     */
+
 
     public T removeLast() {
         if (isEmpty()) return  null;
         int target = (tail - 1 + arr_size) % arr_size;
         T last = arr[target];
         tail = target;
-        length -= 1;
-        if (length * 4 < arr_size) resize(arr_size / 2);
+        list_size -= 1;
+        if (list_size * 4 < arr_size) resize(arr_size / 2);
         return last;
     }
 
     public T removeFirst() {
         if (isEmpty()) return null;
         T first = arr[head];
-        length -= 1;
+        list_size -= 1;
         head = (head + 1 + arr_size) % arr_size;
-        if (length * 4 < arr_size) resize(arr_size / 2);
+        if (list_size * 4 < arr_size) resize(arr_size / 2);
         return first;
     }
 
@@ -78,7 +82,7 @@ public class ArrayDeque<T> {
         int hh = head;
         int j = 0;
 
-        while (j < length) {
+        while (j < list_size) {
             narr[j] = arr[hh];
             j ++;
             hh = (hh + 1) % arr_size;
@@ -95,7 +99,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) System.out.println();
         int hh = head;
         int j = 0;
-        while (j < length) {
+        while (j < list_size) {
             System.out.print(arr[hh]);
             System.out.print(' ');
             hh = (hh + 1) % arr_size;
