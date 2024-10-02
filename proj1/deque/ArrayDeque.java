@@ -158,6 +158,7 @@ public class ArrayDeque<T> implements Deque<T>{
         return new ADIterator();
     }
 
+    /*
     public boolean equals(Object o) {
         if (o instanceof ArrayDeque<?> cmp) {
             if (cmp.size() != list_size) {
@@ -175,5 +176,24 @@ public class ArrayDeque<T> implements Deque<T>{
 
         return false;
 
+    }
+
+     */
+    public boolean equals(Object o) {
+        if (o == null) { return false; }
+        if (this == o) { return true; }
+        if (this.getClass() != o.getClass()) { return false; }
+        ArrayDeque<T> cmp = (ArrayDeque<T>) o;
+        if (cmp.size() != list_size) {
+            return false;
+        }
+
+        for (int i = 0; i < list_size; i += 1) {
+            if (cmp.get(i) != this.get(i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

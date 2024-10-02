@@ -166,6 +166,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return new LDiterable();
     }
 
+    /*
     public boolean equals(Object o) {
         if (o instanceof LinkedListDeque<?> cmp) {
             if (cmp.size() != size()) { return false; }
@@ -179,5 +180,21 @@ public class LinkedListDeque<T> implements Deque<T>{
             return true;
         }
         return false;
+    }
+    */
+    public boolean equals(Object o) {
+        if (o == null) { return false; }
+        if (this == o) {return true; }
+        if (this.getClass() != o.getClass()) {return false; }
+        LinkedListDeque<T> cmp = (LinkedListDeque<T>) o;
+        if (cmp.size() != size()) { return false; }
+
+        for (int i = 0 ; i < list_size ; i ++) {
+            if (cmp.get(i) != get(i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
