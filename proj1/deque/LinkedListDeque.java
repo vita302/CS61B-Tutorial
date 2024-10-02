@@ -4,6 +4,8 @@ package deque;
 
 //import java.awt.event.TEvent;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> implements Deque<T>{
     public class Node<T> {
         T value;
@@ -25,14 +27,17 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     public T getRecursive(int index) {
         Node<T> curr = sentinal.next;
-        if (curr == endSentinal) return null;
+        if (curr == endSentinal) {
+            return null;
+        }
         return getByR(curr , index);
     }
 
     private T getByR(Node<T> curr , int index)
     {
-        if (index == 0) return curr.value;
-        else {
+        if (index == 0) {
+            return curr.value;
+        } else {
             curr = curr.next;
             if (curr == endSentinal) return null;
             return getByR(curr , index - 1);
@@ -41,6 +46,7 @@ public class LinkedListDeque<T> implements Deque<T>{
 
 
 
+    @Override
     public void addFirst(T x) {
         Node<T> fr = new Node<>();
         fr.value = x;
@@ -48,9 +54,12 @@ public class LinkedListDeque<T> implements Deque<T>{
         sentinal.next = fr;
         fr.prev = sentinal;
         list_size += 1;
-        if (endSentinal.prev == sentinal) endSentinal.prev = fr;
+        if (endSentinal.prev == sentinal) {
+            endSentinal.prev = fr;
+        }
     }
 
+    @Override
     public void addLast(T x) {
 
         Node<T> curr = endSentinal.prev;
@@ -60,7 +69,9 @@ public class LinkedListDeque<T> implements Deque<T>{
         curr.next = fr;
         fr.prev = curr;
         endSentinal.prev = fr;
-        if (sentinal.next == endSentinal) sentinal.next = fr;
+        if (sentinal.next == endSentinal) {
+            sentinal.next = fr;
+        }
         list_size += 1;
     }
 
@@ -73,10 +84,12 @@ public class LinkedListDeque<T> implements Deque<T>{
 
      */
 
+    @Override
     public int size() {
         return list_size;
     }
 
+    @Override
     public void printDeque() {
         Node<T> pointer;
         pointer = sentinal.next;
@@ -89,9 +102,12 @@ public class LinkedListDeque<T> implements Deque<T>{
         System.out.println();
     }
 
+    @Override
     public T removeFirst() {
         Node<T> curr = sentinal.next;
-        if (curr == endSentinal) return null;
+        if (curr == endSentinal) {
+            return null;
+        }
         T x = sentinal.next.value;
         curr.prev = sentinal;
         sentinal.next = curr.next;
@@ -99,9 +115,12 @@ public class LinkedListDeque<T> implements Deque<T>{
         return x;
     }
 
+    @Override
     public T removeLast() {
         Node<T> curr = endSentinal.prev;
-        if (curr == sentinal) return null;
+        if (curr == sentinal) {
+            return null;
+        }
         T x = curr.value;
         curr.prev.next = endSentinal;
         endSentinal.prev = curr.prev;
@@ -109,6 +128,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return x;
     }
 
+    @Override
     public T get(int index) {
         int count = 0;
         Node<T> curr = sentinal.next;
@@ -116,10 +136,48 @@ public class LinkedListDeque<T> implements Deque<T>{
         while (count != index) {
             curr = curr.next;
             count += 1;
-            if (curr == endSentinal) return null;
+            if (curr == endSentinal) {
+                return null;
+            }
         }
 
         return curr.value;
     }
 
+    private class LDiterable implements Iterator<T> {
+        private int wizPos;
+        public LDiterable() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < list_size;
+        }
+
+        public T next() {
+            T retItem = get(wizPos);
+            wizPos += 1;
+            return retItem;
+        }
+
+    }
+
+    public Iterator<T> iterator() {
+        return new LDiterable();
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque<?> cmp) {
+            if (cmp.size() != size()) { return false; }
+
+            for (int i = 0 ; i < list_size ; i ++) {
+                if (cmp.get(i) != get(i)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        return false;
+    }
 }
