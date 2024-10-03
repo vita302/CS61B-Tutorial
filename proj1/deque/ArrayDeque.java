@@ -3,10 +3,10 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>{
-    T[] arr;
-    int head = 0;
-    int tail = 0;
-    int list_size , arr_size;
+    private T[] arr;
+    private int head = 0;
+    private int tail = 0;
+    private int list_size , arr_size;
 
     public ArrayDeque() {
         arr = (T[]) new Object[8];
@@ -100,8 +100,9 @@ public class ArrayDeque<T> implements Deque<T>{
         return first;
     }
 
+    public int getArr_size() { return arr_size; }
 
-    public void resize(int cap) {
+    private void resize(int cap) {
         T[] narr = (T[]) new Object[cap];
         int hh = head;
         int j = 0;
@@ -142,14 +143,14 @@ public class ArrayDeque<T> implements Deque<T>{
     private class ADIterator implements Iterator<T>{
         private int wizPos;
         public ADIterator() {
-            wizPos = (head) % arr_size;
+            wizPos = 0;
         }
         public boolean hasNext() {
             return wizPos < list_size;
         }
         public T next() {
-            T retItem = arr[wizPos];
-            wizPos = (wizPos + 1) % arr_size;
+            T retItem = get(wizPos);
+            wizPos = wizPos + 1;
             return retItem;
         }
     }
@@ -158,6 +159,9 @@ public class ArrayDeque<T> implements Deque<T>{
         return new ADIterator();
     }
 
+    public interface Iterable<T> {
+        Iterator<T> iterator();
+    }
     /*
     public boolean equals(Object o) {
         if (o instanceof ArrayDeque<?> cmp) {
@@ -183,7 +187,7 @@ public class ArrayDeque<T> implements Deque<T>{
         if (o == null) { return false; }
         if (this == o) { return true; }
         if (this.getClass() != o.getClass()) { return false; }
-        ArrayDeque<T> cmp = (ArrayDeque<T>) o;
+        Deque<T> cmp = (Deque<T>) o;
         if (cmp.size() != list_size) {
             return false;
         }
