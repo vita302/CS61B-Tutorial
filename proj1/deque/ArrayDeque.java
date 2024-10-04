@@ -100,7 +100,6 @@ public class ArrayDeque<T> implements Deque<T>{
         return first;
     }
 
-    public int getArr_size() { return arr_size; }
 
     private void resize(int cap) {
         T[] narr = (T[]) new Object[cap];

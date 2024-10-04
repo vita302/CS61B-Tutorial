@@ -20,10 +20,10 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
         T tmpmax = get(target);
         for (int i = 1 ; i < size() ; i ++) {
             int res = c.compare(get(target) , tmpmax);
-            if (res > 0) {
+            if (res < 0) {
                 tmpmax = get(target);
             }
-            target = (target + 1) % getArr_size();
+            target = target + 1;
         }
 
         return tmpmax;
