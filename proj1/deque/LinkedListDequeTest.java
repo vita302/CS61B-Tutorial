@@ -136,4 +136,13 @@ public class LinkedListDequeTest {
 
 
     }
+
+    @Test
+    public void testGetclass() {
+        Deque<Integer> lld = new LinkedListDeque<>();
+        Deque<Integer> ald = new ArrayDeque<>();
+
+        System.out.println(lld.getClass());
+        System.out.println(ald.getClass());
+    }
 }

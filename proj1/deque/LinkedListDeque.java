@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> , Iterable<T>{
     private class Node<T> {
         T value;
         Node<T> next;
@@ -53,11 +53,14 @@ public class LinkedListDeque<T> implements Deque<T>{
         return target.value;
     }
 
+    //重写prev，next 上一节点的修改
+    //equals与compator
     @Override
     public T removeLast() {
         if (size == 0) { return null; }
         Node<T> target = sentinal.prev;
         sentinal.prev = target.prev;
+        target.prev.next = sentinal;
         size -= 1;
         if (size == 0) { sentinal.next = sentinal; }
         return target.value;
@@ -102,11 +105,13 @@ public class LinkedListDeque<T> implements Deque<T>{
         else { return getByR(pre.next , index - 1); }
     }
 
-
+/*
     public interface Iterable<T> {
         Iterator<T> iterator();
 
     }
+    */
+
     private class ITLinked<T> implements Iterator<T> {
         private int wizPos;
         public ITLinked() {
@@ -131,7 +136,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     public boolean equals(Object o) {
         if (o == null) { return false; }
         if (o == this) { return true; }
-        if (this.getClass() != o.getClass()) {return false; }
+        //if (this.getClass() != o.getClass()) {return false; }
         Deque<T> cmp = (Deque<T>) o;
         if (cmp.size() != size()) { return false; }
 

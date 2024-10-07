@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> , Iterable<T>{
     private T[] arr;
     private int head = 0;
     private int tail = 0;
@@ -158,9 +158,13 @@ public class ArrayDeque<T> implements Deque<T>{
         return new ADIterator();
     }
 
+    /*
     public interface Iterable<T> {
         Iterator<T> iterator();
     }
+
+
+     */
     /*
     public boolean equals(Object o) {
         if (o instanceof ArrayDeque<?> cmp) {
@@ -185,7 +189,7 @@ public class ArrayDeque<T> implements Deque<T>{
     public boolean equals(Object o) {
         if (o == null) { return false; }
         if (this == o) { return true; }
-        if (this.getClass() != o.getClass()) { return false; }
+        //if (this.getClass() != o.getClass()) { return false; }
         Deque<T> cmp = (Deque<T>) o;
         if (cmp.size() != list_size) {
             return false;
