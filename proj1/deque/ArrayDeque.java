@@ -165,9 +165,9 @@ public class ArrayDeque<T> implements Deque<T> , Iterable<T>{
 
 
      */
-    /*
+    
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque<?> cmp) {
+        if (o instanceof Deque<?> cmp) {
             if (cmp.size() != list_size) {
                 return false;
             }
@@ -185,7 +185,7 @@ public class ArrayDeque<T> implements Deque<T> , Iterable<T>{
 
     }
 
-     */
+     /* 
     public boolean equals(Object o) {
         if (o == null) { return false; }
         if (this == o) { return true; }
@@ -203,4 +203,6 @@ public class ArrayDeque<T> implements Deque<T> , Iterable<T>{
 
         return true;
     }
+
+    */
 }
