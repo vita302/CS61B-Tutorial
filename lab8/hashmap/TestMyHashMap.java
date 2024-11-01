@@ -159,3 +159,13 @@ public class TestMyHashMap {
         assertEquals(studentIDs.get("evil alan"), studentIDs.get("alan"));
     }
 }
+
+/*
+@Test
+public  void testResize() {
+    MyHashMap<String, String> a = new MyHashMap<>();
+    a.testResize(32);
+}
+
+ */
+

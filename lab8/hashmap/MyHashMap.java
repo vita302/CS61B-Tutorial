@@ -168,15 +168,25 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
     }
 
+    /* Interface for test purpose
+    @param A as the new size
+     */
+
+    public void testResize(int size) {
+        resize(size);
+    }
+
     private void resize(int size) {
         Collection<Node>[] oldb = buckets;
         buckets = createTable(size);
+        initsize = size;
         for (Collection<Node> x : oldb) {
             for (Node y : x) {
                 put(y.key , y.value);
+                mapsize -= 1;
             }
         }
-        initsize = size;
+
     }
 
     @Override
